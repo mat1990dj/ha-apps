@@ -1,0 +1,43 @@
+name: "Pecron Monitor Streamer"
+description: "Real-time MQTT streaming bridge for Pecron LFP units."
+version: "0.0.14"
+slug: "pecron_monitor"
+init: false
+host_network: true
+arch:
+  - aarch64
+  - amd64
+options:
+  pecron_account:
+    username: "your_pecron_email@example.com"
+    password: "your_pecron_password"
+    region: "na"
+  device_information:
+    device_name: "Pecron3800LFP"
+    product_key: "your_product_key"
+    device_key: "your_device_key"
+    auth_key: ""
+    lan_ip: ""
+    connection_mode: "Automatic"
+  mqtt_settings:
+    mqtt_host: "core-mosquitto"
+    mqtt_port: 1883
+    mqtt_username: "your_mqtt_user"
+    mqtt_password: "your_mqtt_password"
+schema:
+  pecron_account:
+    username: str
+    password: password
+    region: "list(na|eu|cn)"
+  device_information:
+    device_name: str
+    product_key: str
+    device_key: str
+    auth_key: str?
+    lan_ip: str?
+    connection_mode: "list(Automatic|Local only|Cloud only|Cloud REST only)"
+  mqtt_settings:
+    mqtt_host: str
+    mqtt_port: port
+    mqtt_username: str
+    mqtt_password: password
