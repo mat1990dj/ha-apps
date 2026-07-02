@@ -1,6 +1,6 @@
 # Home Assistant Add-on: Pecron Monitor Streamer
 
-[![Home Assistant Add-on Store](https://img.shields.io/badge/Home%20Assistant-Add--on%20Store-blue.svg?style=flat-for-the-badge)](https://my.home-assistant.io/redirect/supervisor_add_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fyour-repo-name)
+[![Home Assistant Add-on Store](https://img.shields.io/badge/Home%20Assistant-Add--on%20Store-blue.svg?style=flat-for-the-badge)](https://my.home-assistant.io/redirect/supervisor_add_repository/?repository_url=https://github.com/mat1990dj/ha-apps/pecron_monitor)
 
 A real-time MQTT streaming bridge built specifically for **Pecron LFP portable power stations** (such as the E3800LFP). This add-on connects to your power station and streams real-time wattage, battery percentages, and temperatures directly into Home Assistant via MQTT for beautiful, responsive dashboards.
 
@@ -19,7 +19,7 @@ This add-on is a Home Assistant packaging wrapper that relies directly on the un
 
 You can add this repository to your Home Assistant instance automatically by clicking the button below:
 
-[![Open your Home Assistant instance and show the add-on store with a specific repository pre-filled.](https://my.home-assistant.io/badges/supervisor_add_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fyour-username%2Fyour-repo-name)
+[![Open your Home Assistant instance and show the add-on store with a specific repository pre-filled.](https://my.home-assistant.io/badges/supervisor_add_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_repository/?repository_url=https://github.com/mat1990dj/ha-apps/pecron_monitor)
 
 ### Manual Installation
 If you prefer to add it manually:
