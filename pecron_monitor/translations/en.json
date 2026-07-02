@@ -1,0 +1,79 @@
+{
+    "configuration": {
+        "pecron_account": {
+            "name": "Pecron Account Settings",
+            "description": "Your mobile Pecron cloud app login credentials.",
+            "sections": {
+            "username": {
+                "name": "Pecron Email Address",
+                "description": "The login email associated with your mobile Pecron App."
+            },
+            "password": {
+                "name": "Pecron Password",
+                "description": "Your Pecron cloud account password."
+            },
+            "region": {
+                "name": "Cloud Region",
+                "description": "Select the server location where your Pecron account was created.",
+                "options": {
+                    "na": "North America",
+                    "eu": "Europe",
+                    "cn": "China"
+                }
+        }
+            }
+        },
+        "device_information": {
+            "name": "Pecron Device Parameters",
+            "description": "Identifiers found in your Pecron App device details.",
+            "sections": {
+            "device_name": {
+                "name": "Home Assistant Device Name",
+                "description": "What this entity will be displayed as across your dashboards."
+            },
+            "product_key": {
+                "name": "Product Key",
+                "description": "The specific family model identifier for your power station."
+            },
+            "device_key": {
+                "name": "Device Key (ID)",
+                "description": "The unique hardware/serial key assigned to your physical unit."
+            },
+            "auth_key": {
+                "name": "Local Auth Key (Optional)",
+                "description": "If extracted, allows authenticated high-speed local control bypassing cloud reliance."
+            },
+            "lan_ip": {
+                "name": "Device IP Address (Optional)",
+                "description": "The static local IP of your Pecron unit on your home Wi-Fi network."
+            },
+            "connection_mode": {
+                "name": "Data Routing Mode",
+                "description": "Enforce strict local local polling, pure cloud connection, or let it decide automatically."
+            }
+            }
+        },
+        "mqtt_settings": {
+            "name": "MQTT Broker Integration",
+            "description": "Connection details for your Home Assistant MQTT broker.",
+            "sections": {
+            "mqtt_host": {
+                "name": "MQTT Broker Hostname",
+                "description": "IP or address of your broker. Use 'core-mosquitto' if using the official HA add-on."
+            },
+            "mqtt_port": {
+                "name": "MQTT Broker Port",
+                "description": "The target port for your broker. Standard is 1883."
+            },
+            "mqtt_username": {
+                "name": "MQTT Username",
+                "description": "Authorized user credentials for writing to the MQTT broker state."
+            },
+            "mqtt_password": {
+                "name": "MQTT Password",
+                "description": "Password matching your authorized MQTT integration user profile."
+            }
+            }
+        }
+    }
+}
