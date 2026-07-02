@@ -1,9 +1,9 @@
 name: "Pecron Monitor Streamer"
 description: "Real-time MQTT streaming bridge for Pecron LFP units."
-version: "0.0.14"
+version: "0.0.23"
 slug: "pecron_monitor"
+apparmor: true
 init: false
-host_network: true
 arch:
   - aarch64
   - amd64

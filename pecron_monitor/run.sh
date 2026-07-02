@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/with-contenv bashio
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -89,5 +89,6 @@ case "${CONNECTION_MODE}" in
         ;;
 esac
 
+cd /app
 # Fire up Logan's native script with unbuffered output
-exec python3 -u pecron_monitor.py --homeassistant ${CONN_FLAGS}
+python3 -u pecron_monitor.py --homeassistant ${CONN_FLAGS}

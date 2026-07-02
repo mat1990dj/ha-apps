@@ -1,7 +1,7 @@
-FROM python:3.11-slim
+FROM ghcr.io/home-assistant/base-python:3.13-alpine3.24
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y jq git && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache git
 
 # Set working directory
 WORKDIR /app
@@ -12,8 +12,7 @@ RUN git clone https://github.com/attractify-logan/pecron-monitor.git .
 # Install python requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy our runner script into the image
-COPY run.sh /app/run.sh
-RUN chmod a+x /app/run.sh
+RUN mkdir -p /etc/services.d/pecron_monitor
 
-CMD [ "/app/run.sh" ]
+COPY run.sh /etc/services.d/pecron_monitor/run
+RUN chmod a+x /etc/services.d/pecron_monitor/run

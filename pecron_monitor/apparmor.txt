@@ -1,0 +1,45 @@
+#include <tunables/global>
+
+# Make sure this matches your exact addon slug name (e.g., pecron_monitor)
+profile pecron_monitor flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  # Capabilities
+  file,
+  signal (send) set=(kill,term,int,hup,cont),
+
+  # Allow outbound network connections
+  network inet stream,
+  network inet dgram,
+  network inet6 stream,
+  network inet6 dgram,
+
+  # S6-Overlay System Initializer Whitelist
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
+  /package/** ix,
+  /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/{,**} rwk,
+  /dev/tty rw,
+
+  # Home Assistant Bashio Utilities
+  /usr/lib/bashio/** ix,
+  /tmp/** rwk,
+
+  # System libraries and python paths
+  /usr/local/bin/** rmix,
+  /lib/** rmix,
+  /usr/lib/** rmix,
+
+  # Pecron Application Environment Access
+  /app/** rmix,
+
+  # Persistent Data Access
+  /data/** rw,
+}
