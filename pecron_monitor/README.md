@@ -4,7 +4,7 @@
 
 A real-time MQTT streaming bridge built specifically for **Pecron LFP portable power stations** (such as the E3800LFP). This add-on connects to your power station and streams real-time wattage, battery percentages, and temperatures directly into Home Assistant via MQTT for beautiful, responsive dashboards.
 
-This add-on is a Home Assistant packaging wrapper that relies directly on the underlying core logic from Logan's [pecron-monitor](https://github.com/attractify-logan/pecron-monitor) library.
+This add-on is a Home Assistant packaging wrapper that relies directly on the underlying core logic from @attractify-logan [pecron-monitor](https://github.com/attractify-logan/pecron-monitor) library.
 
 ---
 
