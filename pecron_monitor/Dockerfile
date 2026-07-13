@@ -6,7 +6,6 @@ RUN apk add --no-cache git
 # Set working directory
 WORKDIR /app
 
-# Clone Logan's repository directly
 RUN git clone https://github.com/attractify-logan/pecron-monitor.git .
 
 # Install python requirements
