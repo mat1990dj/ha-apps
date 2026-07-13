@@ -6,7 +6,7 @@ RUN apk add --no-cache git
 # Set working directory
 WORKDIR /app
 
-RUN git clone https://github.com/attractify-logan/pecron-monitor.git .
+RUN git clone --depth 1 -b v0.7.18 https://github.com/attractify-logan/pecron-monitor.git .
 
 # Install python requirements
 RUN pip install --no-cache-dir -r requirements.txt
