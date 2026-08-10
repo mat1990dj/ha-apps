@@ -25,7 +25,7 @@ You can add this repository to your Home Assistant instance automatically by cli
 If you prefer to add it manually:
 1. In Home Assistant, navigate to **Settings** $\rightarrow$ **Add-ons** $\rightarrow$ **Add-on Store**.
 2. Click the three vertical dots in the upper-right corner and select **Repositories**.
-3. Paste your GitHub repository URL: `https://github.com/your-username/your-repo-name`
+3. Paste your GitHub repository URL: `[https://github.com/your-username/your-repo-name](https://github.com/mat1990dj/ha-apps)`
 4. Click **Add**, close the dialog box, and scroll down to find **Pecron Monitor Streamer**.
 5. Click **Install**.
 
@@ -44,7 +44,7 @@ The add-on configuration tab is broken down into three logical sections to help 
 * **Home Assistant Device Name:** The friendly identity given to this unit across your system entities (e.g., `Pecron3800LFP`).
 * **Product Key:** The hardware family model identifier found inside your Pecron App's device details page.
 * **Device Key (ID):** The specific hardware/serial key assigned to your physical power station.
-* **Local Auth Key (Optional):** If you have extracted your local authentication token, pasting it here unlocks secure direct local LAN control.
+* **Local Auth Key (Optional):** If you have extracted your local authentication token, pasting it here unlocks secure direct local LAN control. The Auth Key should be displayed on the logs the first time the App is started.
 * **Device IP Address (Optional):** The static local IP of your Pecron unit on your home Wi-Fi network.
 * **Data Routing Mode:** A selection menu allowing you to enforce strict `Local only` polling, `Cloud only` relays, `Cloud REST only`, or `Automatic` orchestration.
 
@@ -57,6 +57,42 @@ The add-on configuration tab is broken down into three logical sections to help 
 
 ## Developer Roadmap & Native Updates
 By default, this add-on compiles the required runtime container locally on your host hardware upon installation.
+
 **BLE**: Since the underlaying library tries to access raw hardware ble capability, this probably does not work and relies purely on TCP/MQTT.
+
+**Local MQTT to the Pecron Device**: While providing a `lan_ip` and `auth_key` enables a direct connection to the device on your local network, this driver operates as a hybrid system: **most device states, telemetry updates, and control commands still travel through Pecron's Cloud MQTT infrastructure.**
+
+#### Communication Mechanisms Breakdown
+
+* **Local TCP / Socket Connection**
+  * **Requirements:** Requires both `lan_ip` and `auth_key` in the configuration.
+  * **Role:** Connects directly to the Pecron unit over your local network for some low-latency status polling and direct local command execution.
+  * **Scope:** Primarily handles local commands and telemetry (bypassed if telemetry provided via MQTT), additionally certain extended parameters or cloud-linked settings may still route through cloud endpoints.
+
+* **Cloud MQTT Stream**
+  * **Role:** Establishes a persistent MQTT connection directly with Pecron's remote cloud broker.
+  * **Scope:** Carries real-time telemetry streaming, event notifications, and command broadcasts when local streaming is disabled, unsupported by the firmware, or offline.
+
+* **Cloud REST API**
+  * **Role:** Performs standard HTTPS REST requests to Pecron’s cloud servers.
+  * **Scope:** Used during startup to authenticate your account credentials, fetch initial device keys, and act as a fallback state-retrieval mechanism if streaming drops.
+
+#### How Connection Retries & Failovers Work
+
+Depending on the **Connection Mode** selected in your add-on options, communication attempts follow a strict priority sequence:
+
+1. **Automatic Mode (Default)**
+   * **Step 1 (Local Attempt):** Tries to bind to the device directly via TCP using `lan_ip` and `auth_key`.
+   * **Step 2 (Cloud MQTT Fallback):** If local binding fails or times out, it connects to Pecron's Cloud MQTT broker to resume streaming data.
+   * **Step 3 (Cloud REST Fallback):** If the MQTT broker becomes unreachable, it falls back to periodic REST HTTP polling to maintain sensor state updates in Home Assistant.
+
+2. **Local Only Mode (`--local`)**
+   * Restricts all traffic to direct local TCP sockets using `lan_ip` and `auth_key`. Bypasses cloud MQTT streaming entirely.
+
+3. **Cloud Only Mode (`--nolocal`)**
+   * Forces all traffic through Pecron's Cloud MQTT streaming services, completely ignoring any local network options.
+
+4. **Cloud REST Only Mode (`--rest-only`)**
+   * Disables all real-time TCP and MQTT sockets, polling Pecron's cloud REST endpoints at regular intervals.
 
 *Contributions, bug fixes, and dashboard layout examples are always welcome via Pull Requests!*
